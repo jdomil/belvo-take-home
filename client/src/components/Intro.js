@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 
-const Intro = () => {
+const Intro = (props) => {
+  const { link, handleLink } = props;
+
   const openBelvoWidget = async () => {
     try {
       const response = await axios.get('/get_token');
@@ -21,15 +23,20 @@ const Intro = () => {
 
   const successCallbackFunction = (link_id) => {
     localStorage.setItem('link', link_id);
+    console.log(link_id);
+    handleLink(link_id);
   };
 
   const onExitCallbackFunction = (data) => {
     console.log('data', data);
   };
 
+  if (link) {
+    return null;
+  }
+
   return (
     <section>
-      <h1 className='header'>Juan Dominguez - Belvo Demo App</h1>
       <h3 className='header-3'>
         This is a demo app for the Customer Engineer position at Belvo
       </h3>
