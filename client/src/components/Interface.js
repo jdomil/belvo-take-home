@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
-
-const Interface = (props) => {
-  const { link } = props;
-=======
 import moment from 'moment';
 
 const Interface = (props) => {
   const { link, reset } = props;
->>>>>>> f3380da (Pushing entire app after corrupted git file)
 
   const [belvoData, setBelvoData] = useState({
     accounts: [],
@@ -20,23 +14,12 @@ const Interface = (props) => {
   const retrieveAccounts = async () => {
     try {
       const response = await axios.post('/accounts', { link_id: link });
-<<<<<<< HEAD
-      setBelvoData({ accounts: response.data });
-      console.log(belvoData.accounts);
-=======
       setBelvoData({ accounts: response.data, transactions: [], balances: [] });
->>>>>>> f3380da (Pushing entire app after corrupted git file)
     } catch (error) {
       console.error(error.message);
     }
   };
 
-<<<<<<< HEAD
-  const retrieveTransactions = async () => {
-    try {
-      const response = await axios.post('/transactions', { link_id: link });
-      console.log(response.data);
-=======
   const renderAccounts = (accountsArray) => {
     if (accountsArray.length === 0) return null;
 
@@ -66,14 +49,11 @@ const Interface = (props) => {
     try {
       const response = await axios.post('/transactions', { link_id: link });
       setBelvoData({ accounts: [], transactions: response.data, balances: [] });
->>>>>>> f3380da (Pushing entire app after corrupted git file)
     } catch (error) {
       console.error(error.message);
     }
   };
 
-<<<<<<< HEAD
-=======
   const renderTransactions = (transactionsArray) => {
     if (transactionsArray.length === 0) return null;
 
@@ -142,7 +122,6 @@ const Interface = (props) => {
     reset();
   };
 
->>>>>>> f3380da (Pushing entire app after corrupted git file)
   const { accounts, transactions, balances } = belvoData;
 
   if (!link) {
@@ -152,13 +131,6 @@ const Interface = (props) => {
   return (
     <div>
       <div className='mt-5 main-section'>
-<<<<<<< HEAD
-        <p>Your accounts have been linked</p>
-      </div>
-      <hr />
-      <p>LINK ID</p>
-      <p>{link}</p>
-=======
         <div className='d-flex justify-content-between'>
           <p>Your accounts have been linked</p>
           <button
@@ -177,7 +149,6 @@ const Interface = (props) => {
           <p>{link}</p>
         </div>
       </div>
->>>>>>> f3380da (Pushing entire app after corrupted git file)
       <div className='p-4 endpoints-section'>
         <p>ENDPOINTS</p>
         <div className='d-flex flex-column justify-content-between endpoints-container'>
@@ -214,34 +185,9 @@ const Interface = (props) => {
                 </button>
               </div>
             </div>
-<<<<<<< HEAD
-            <div className='row'>
-              <table className='table'>
-                <thead>
-                  <tr>
-                    <th scope='col'>Name</th>
-                    <th scope='col'>Account Number</th>
-                    <th scope='col'>Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {accounts.map((account) => (
-                    <tr>
-                      <td>{account.name}</td>
-                      <td>{account.number}</td>
-                      <td>{account.balance.current}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div className='container endpoints-card transactions'>
-=======
             <div className='row'>{renderAccounts(accounts)}</div>
           </div>
           <div className='container mb-5 endpoints-card transactions'>
->>>>>>> f3380da (Pushing entire app after corrupted git file)
             <div className='row'>
               <div className='col-1'>
                 <div className='endpoint-card_method'>
@@ -274,28 +220,6 @@ const Interface = (props) => {
                 </button>
               </div>
             </div>
-<<<<<<< HEAD
-            <div className='row'>
-              <table className='table'>
-                <thead>
-                  <tr>
-                    <th scope='col'>Name</th>
-                    <th scope='col'>Account Number</th>
-                    <th scope='col'>Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {accounts.map((account) => (
-                    <tr>
-                      <td>{account.name}</td>
-                      <td>{account.number}</td>
-                      <td>{account.balance.current}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-=======
             <div className='row'>{renderTransactions(transactions)}</div>
           </div>
           <div className='container mb-5 endpoints-card balances'>
@@ -332,7 +256,6 @@ const Interface = (props) => {
               </div>
             </div>
             <div className='row'>{renderBalances(balances)}</div>
->>>>>>> f3380da (Pushing entire app after corrupted git file)
           </div>
         </div>
       </div>
