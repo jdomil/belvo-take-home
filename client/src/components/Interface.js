@@ -11,16 +11,35 @@ const Interface = (props) => {
     balances: [],
   });
 
+  const [apiErrors, setErrors] = useState({
+    accountsErrors: [],
+    transactionsErrors: [],
+    balancesErrors: [],
+  });
+
   const retrieveAccounts = async () => {
     try {
       const response = await axios.post('/accounts', { link_id: link });
       setBelvoData({ accounts: response.data, transactions: [], balances: [] });
     } catch (error) {
       console.error(error.message);
+      setErrors({
+        accountsErrors: error.message,
+        transactionsErrors: [],
+        balancesErrors: [],
+      });
     }
   };
 
-  const renderAccounts = (accountsArray) => {
+  const renderAccounts = (accountsArray, accountsErrorsString) => {
+    if (accountsErrorsString.length !== 0) {
+      return (
+        <div className='alert alert-danger' role='alert'>
+          {accountsErrorsString}
+        </div>
+      );
+    }
+
     if (accountsArray.length === 0) return null;
 
     return (
@@ -51,10 +70,23 @@ const Interface = (props) => {
       setBelvoData({ accounts: [], transactions: response.data, balances: [] });
     } catch (error) {
       console.error(error.message);
+      setErrors({
+        accountsErrors: [],
+        transactionsErrors: error.message,
+        balancesErrors: [],
+      });
     }
   };
 
-  const renderTransactions = (transactionsArray) => {
+  const renderTransactions = (transactionsArray, transactionsErrorsString) => {
+    if (transactionsErrorsString.length !== 0) {
+      return (
+        <div className='alert alert-danger' role='alert'>
+          {transactionsErrorsString}
+        </div>
+      );
+    }
+
     if (transactionsArray.length === 0) return null;
 
     return (
@@ -85,10 +117,23 @@ const Interface = (props) => {
       setBelvoData({ accounts: [], transactions: [], balances: response.data });
     } catch (error) {
       console.error(error.message);
+      setErrors({
+        accountsErrors: [],
+        transactionsErrors: [],
+        balancesErrors: error.message,
+      });
     }
   };
 
-  const renderBalances = (balancesArray) => {
+  const renderBalances = (balancesArray, balancesErrorsString) => {
+    if (balancesErrorsString.length !== 0) {
+      return (
+        <div className='alert alert-danger' role='alert'>
+          {balancesErrorsString}
+        </div>
+      );
+    }
+
     if (balancesArray.length === 0) return null;
 
     return (
@@ -123,6 +168,7 @@ const Interface = (props) => {
   };
 
   const { accounts, transactions, balances } = belvoData;
+  const { accountsErrors, transactionsErrors, balancesErrors } = apiErrors;
 
   if (!link) {
     return null;
@@ -185,7 +231,9 @@ const Interface = (props) => {
                 </button>
               </div>
             </div>
-            <div className='row'>{renderAccounts(accounts)}</div>
+            <div className='row'>
+              {renderAccounts(accounts, accountsErrors)}
+            </div>
           </div>
           <div className='container mb-5 endpoints-card transactions'>
             <div className='row'>
@@ -220,7 +268,9 @@ const Interface = (props) => {
                 </button>
               </div>
             </div>
-            <div className='row'>{renderTransactions(transactions)}</div>
+            <div className='row'>
+              {renderTransactions(transactions, transactionsErrors)}
+            </div>
           </div>
           <div className='container mb-5 endpoints-card balances'>
             <div className='row'>
@@ -255,7 +305,9 @@ const Interface = (props) => {
                 </button>
               </div>
             </div>
-            <div className='row'>{renderBalances(balances)}</div>
+            <div className='row'>
+              {renderBalances(balances, balancesErrors)}
+            </div>
           </div>
         </div>
       </div>
