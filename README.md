@@ -15,15 +15,17 @@ In order to run locally, you will need to clone this repository and follow the s
 
 1. Change directory to the project folder
 2. Make sure you replace the Belvo Secret ID and Password with your own credentials in the .env file
-3. Run the commands below to install all the required dependencies:
+3. Run the follwoing command to install all the required dependencies: `npm i && npm i --prefix client`
 
-```
-cd client
-npm install
-cd ..
-npm install
-```
+4. After this, make sure you are in the project root folder and run `npm run launch`. A new tab in your browser should be opened with the working application.
 
-4. After this, change directory to the main folder and run `npm run launch`. A new tab in your browser should be opened with the working application.
+## Test details
+
+For the bank authorization in the widget, you can use the test details below:
+
+Username: bank100
+Password: 123456
+
+If you'd like to test the MFA flow, you can use the sandbox details in [Belvo's documentation](https://developers.belvo.com/docs/test-in-sandbox#advanced-mfa)
 
 
